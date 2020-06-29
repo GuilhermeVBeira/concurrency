@@ -8,9 +8,9 @@ def calcula():
     return pow(9, 999999)
 
 # We can use a with statement to ensure threads are cleaned up promptly
-with concurrent.futures.ProcessPoolExecutor() as executor:
+with concurrent.futures.ThreadPoolExecutor() as executor:
     # Start the load operations and mark each future with its URL
-    future_to_pow = {executor.submit(calcula): i for i in range(200)}
+    future_to_pow = {executor.submit(calcula): i for i in range(100)}
     for future in concurrent.futures.as_completed(future_to_pow):
         task_number = future_to_pow[future]
         # print(f"tarefa {task_number} finalizada")
